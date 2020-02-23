@@ -1,16 +1,43 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { render } from 'react-dom';
 import PropTypes from 'prop-types';
 import ButtonList from './ButtonList';
 import './index.css';
 
-const Container = ({ buttonLists }) => (
-  <section className="container">
-    <h1 className="title">{ buttonLists.title }</h1>
-    <ButtonList listButtons={ buttonLists.leftButtons }/>
-    <ButtonList listButtons={ buttonLists.rightButtons }/>
-  </section>
-);
+class Container extends Component {
+  constructor(props) {
+    super(props);
+
+    this.buttonLists = this.props.buttonLists;
+
+    this.state = {
+      countClick: 0,
+      suss: 0,
+      leftListLength: this.buttonLists.leftButtons.length,
+      rightListLength: this.buttonLists.rightButtons.length,
+    };
+  }
+
+  handleClick(e) {
+    console.log(e);
+    
+    this.setState({
+      countClick: this.state.countClick + 1
+    });
+  }
+
+  render() {
+    console.log(this);
+    
+    return (
+      <section className="container">
+        <h1 className="title">{ this.buttonLists.title }</h1>
+        <ButtonList listButtons={this.buttonLists.leftButtons} onAction={e => this.handleClick(e)} />
+        <ButtonList listButtons={this.buttonLists.rightButtons} onAction={e => this.handleClick(e)}/>
+      </section>
+    );
+  }
+}
 
 Container.propTypes = {
   buttonLists: PropTypes.object

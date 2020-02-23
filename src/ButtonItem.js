@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const ButtonItem = ({ button }) => (
-  <button type="button" site={ button.site } match={ button.match }>{ button.value }</button>
+const ButtonItem = ({ button, onClick }) => (
+  <button type="button" onClick={(e) => onClick(e)} site={ button.site } match={ button.match }>{ button.value }</button>
 );
 
 ButtonItem.propTypes = {

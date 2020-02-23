@@ -2,11 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import ButtonItem from './ButtonItem';
 
-const ButtonList = ({ listButtons }) => (
+const ButtonList = ({ listButtons, onAction }) => (
   <ul className="list">
     {listButtons.map(button => (
       <li key={ button.id }>
-        <ButtonItem button={ button } />
+        <ButtonItem button={button} onClick={(e) => onAction(e)} />
       </li>
     ))}
   </ul>
