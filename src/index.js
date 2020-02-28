@@ -10,30 +10,92 @@ class Container extends Component {
 
     this.buttonLists = this.props.buttonLists;
 
+    this.match = [];
+
+    this.target = [];
+
     this.state = {
       countClick: 0,
-      suss: 0,
-      leftListLength: this.buttonLists.leftButtons.length,
-      rightListLength: this.buttonLists.rightButtons.length,
+      hit: 0
     };
   }
 
-  handleClick(e) {
-    console.log(e);
+  handleClick = (e) => {
+    const target = e.target;
     
-    this.setState({
-      countClick: this.state.countClick + 1
+    this.match.push(target.getAttribute('match'));
+
+    this.target.push(target);
+    
+    this.setState((state, props) => {
+      return {
+        countClick: state.countClick + 1
+      }
     });
   }
 
+  comparison() {
+    const [first, second] = this.match;
+
+    if (first === second) {
+      this.addMatching();
+      // this.removeFromList();
+
+      this.setState({
+        hit: this.state.hit + 1,
+        countClick: 0
+      });
+
+    } else {
+      this.setState({
+        countClick: 0
+      });
+    }
+    
+    this.match.length = 0;
+    this.target.length = 0;
+  }
+
+  addMatching() {
+    const [firstButton, secondButton] = this.target;
+    const result = document.querySelector('.result');
+    const div = document.createElement('div');
+
+    firstButton.classList.remove('inList');
+    secondButton.classList.remove('inList');
+
+    div.appendChild(firstButton);
+    div.appendChild(secondButton);
+
+    result.insertBefore(div, result.firstChild);
+  }
+
+  // removeFromList() {
+  //   const [firstButton, secondButton] = this.target;
+  //   const firstParent = firstButton.parentNode;
+  //   const secondParent = secondButton.parentNode;
+
+  //   firstParent.parentNode.removeChild(firstParent);
+  //   secondParent.parentNode.removeChild(secondParent);
+  // }
+
   render() {
     console.log(this);
+
+    if (this.state.hit === 5) {
+      console.log('GAME OVER');
+    }
+
+    if (this.state.countClick === 2) {
+      this.comparison();
+    }
     
     return (
       <section className="container">
         <h1 className="title">{ this.buttonLists.title }</h1>
-        <ButtonList listButtons={this.buttonLists.leftButtons} onAction={e => this.handleClick(e)} />
-        <ButtonList listButtons={this.buttonLists.rightButtons} onAction={e => this.handleClick(e)}/>
+        <ButtonList listButtons={ this.buttonLists.leftButtons } onAction={ this.handleClick } />
+        <ButtonList listButtons={ this.buttonLists.rightButtons } onAction={ this.handleClick }/>
+        <div className="result"></div>
       </section>
     );
   }

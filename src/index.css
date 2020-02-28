@@ -11,6 +11,11 @@
   text-align: center;
 }
 
+.result {
+  flex: 1 100%;
+  text-align: center;
+}
+
 .list {
   background-color: #141414;
   padding: 20px 30px;
@@ -22,7 +27,7 @@ ul {
   padding: 0 20px;
 }
 
-button {
+button.inList {
   width: 100%;
   padding: 0.7em 1.7em;
   margin: 0 0.5em 0.5em 0;
@@ -34,4 +39,9 @@ button {
   font-weight: 500;
   font-size: 1.1em;
   cursor: pointer;
+}
+
+.result div {
+  background-color: #141414;
+  align-items: center;
 }

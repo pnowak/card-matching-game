@@ -6,7 +6,7 @@ const ButtonList = ({ listButtons, onAction }) => (
   <ul className="list">
     {listButtons.map(button => (
       <li key={ button.id }>
-        <ButtonItem button={button} onClick={(e) => onAction(e)} />
+        <ButtonItem button={ button } onAction={ onAction } />
       </li>
     ))}
   </ul>
